@@ -354,8 +354,8 @@ def autoconfigure_ppp(device, speed):
     PAP_SECRETS_TEMPLATE = "# Modded from dreampi.py\n" "# INBOUND connections\n" '*       *       ""      *' "\n"
 
     this_ip = find_next_unused_ip(".".join(subnet) + ".100")
-    #dreamcast_ip = find_next_unused_ip(this_ip)
-    dreamcast_ip = this_ip[0:len(this_ip)-2] + "98"
+    dreamcast_ip = find_next_unused_ip(this_ip)
+    #dreamcast_ip = this_ip[0:len(this_ip)-2] + "98"
 
     logger.info("Dreamcast IP: {}".format(dreamcast_ip))
 
