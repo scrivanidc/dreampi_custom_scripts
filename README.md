@@ -24,6 +24,7 @@ Open the RaspberryPi command line and run the commands below:
 
 
 Explanation of the options:
+
 Option 1: Installs/Replaces the script that gives access to the DCNET servers - On Switch
 
 Option 2: Restores the default DreamPi script (access to DCLive servers) - Off Switch
@@ -33,5 +34,6 @@ Option 3: Deletes files related to the DCNET connection - Total Uninstallation
 Explanation of the approach:
 This automation script makes a backup (2 times) of the original DreamPi script, as well as downloads the two files related 
 to DCNET directly from the Flycast/Flyinghead github, so it has everything needed to install the add-on.
-And whenever an option is chosen between on or off, it simply replaces the dreampi.py file with the backup, either from the standard DCLive", or from DCNET.
+And whenever an option is chosen between on or off, it simply replaces the dreampi.py file with the backup, either from the standard DCLive, or from DCNET.
+
 In short, this installer/executor works as a router between one script and another, being the traditional one and the DCNET.
