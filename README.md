@@ -7,11 +7,11 @@ DCNET Servers Add-on for DreamPi Tutorial (DC hardware)
 
 Open the RaspberryPi command line and run the commands below:
 1. Download the DCNET On/Off Switch Script
-	wget https://github.com/scrivanidc/dreampi_custom_scripts/raw/refs/heads/main/dcnet_on_off.sh
+>	wget https://github.com/scrivanidc/dreampi_custom_scripts/raw/refs/heads/main/dcnet_on_off.sh
 2. Grant execution permission
-	chmod +x dcnet_on_off.sh
+>	chmod +x dcnet_on_off.sh
 3. Run DCNET On/Off Switch
-	./dcnet_on_off.sh
+>	./dcnet_on_off.sh
 4. Choose an option and press Enter
 
 
