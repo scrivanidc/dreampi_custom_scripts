@@ -5,6 +5,11 @@ About dcnet_on_off.sh:
 
 DCNET Servers Add-on for DreamPi Tutorial (DC hardware)
 
+Dreamcast WEB BROWSER ISP Setting: Use any username (you own) and password need to be "password" (no impact with shuouma sega tetris server authenication, will also be safe)
+Example:
+user: scrivani
+pass: password
+
 Open the RaspberryPi command line and run the commands below:
 1. Download the DCNET On/Off Switch Script
 >	wget https://github.com/scrivanidc/dreampi_custom_scripts/raw/refs/heads/main/dcnet_on_off.sh
