@@ -3,6 +3,11 @@ This ReadMe is not exclusive for all the files in this directory.
 
 About dcnet_on_off.sh:
 
+DCNET has now (06-fev-25) two exclusive games online: AeroDancing, Hundred Swords
+
+DCNET Patched GDIs , just needed for real hardware
+https://bit.ly/DCNET
+
 DCNET Servers Add-on for DreamPi Tutorial (DC hardware)
 
 Dreamcast WEB BROWSER ISP Setting: Use any username (you own) and password need to be "password" (no impact with shuouma sega tetris server authenication, will also be safe)
