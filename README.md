@@ -3,7 +3,9 @@ This ReadMe is not exclusive for all the files in this directory.
 
 About dcnet_on_off.sh:
 
-WHAT IS, READ HERE: https://dreamcast-talk.com/forum/viewtopic.php?t=18143
+WHAT IS, READ HERE: 
+https://dreamcast-talk.com/forum/viewtopic.php?t=18143
+https://www.reddit.com/r/dreamcast/comments/1i5dsfh/dcnet_is_here_on_flycast_play_native_online/
 
 DCNET has now (06-fev-25) two exclusive games online: AeroDancing, Hundred Swords
 
