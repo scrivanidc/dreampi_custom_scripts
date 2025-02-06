@@ -3,6 +3,8 @@ This ReadMe is not exclusive for all the files in this directory.
 
 About dcnet_on_off.sh:
 
+WHAT IS, READ HERE: https://dreamcast-talk.com/forum/viewtopic.php?t=18143
+
 DCNET has now (06-fev-25) two exclusive games online: AeroDancing, Hundred Swords
 
 DCNET Patched GDIs , just needed for real hardware
