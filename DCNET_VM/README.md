@@ -1,5 +1,6 @@
 This ReadMe is not exclusive for all the files in this directory.
 
+THIS ONE IS FOR VIRTUAL MACHINE PC-DC - ORACLE VIRTUAL BOX
 
 About dcnet_on_off.sh:
 
@@ -20,7 +21,7 @@ Example:
 user: scrivani
 pass: password
 
-Open the RaspberryPi command line and run the commands below:
+Open the command line and run the commands below:
 1. Download the DCNET On/Off Switch Script
 >	wget https://github.com/scrivanidc/dreampi_custom_scripts/raw/refs/heads/main/dcnet_on_off.sh
 2. Grant execution permission
