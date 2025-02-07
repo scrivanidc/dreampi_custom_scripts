@@ -52,3 +52,7 @@ to DCNET directly from the Flycast/Flyinghead github, so it has everything neede
 And whenever an option is chosen between on or off, it simply replaces the dreampi.py file with the backup, either from the standard DCLive, or from DCNET.
 
 In short, this installer/executor works as a router between one script and another, being the traditional one and the DCNET.
+
+Youtube Video:
+Installing/Executing DCNET Switch Tool for DreamPi
+https://youtu.be/AsPZn_KY7x0
