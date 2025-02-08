@@ -10,7 +10,7 @@ WHAT IS, READ HERE:
 
 DCNET has now (06-fev-25) two exclusive games online: AeroDancing, Hundred Swords
 
-DCNET Patched GDIs , just needed for real hardware
+DCNET Patched GDIs/CDIs , just needed for real hardware
 https://bit.ly/DCNET
 
 DCNET Servers Add-on for DreamPi Tutorial (DC hardware)
