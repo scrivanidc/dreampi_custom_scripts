@@ -56,3 +56,10 @@ In short, this installer/executor works as a router between one script and anoth
 Youtube Video:
 Installing/Executing DCNET Switch Tool for DreamPi
 https://youtu.be/AsPZn_KY7x0
+
+
+
+Important issues:
+Reusing the DreamPi for DCNET will require you to manually change the options on the command line every time you want to return to the default connection mode (default servers). If this is unpleasant for you, I kindly ask you to avoid it.
+
+Accessing the command line of your RaspberryPi is very simple with remote access via the network, via your computer or smartphone. I recommend searching for and researching SSH access. I recommend the software Putty on the computer and something like JuiceSSH on the smartphone. You only need to know the IP of the RaspberryPi and be on the same wifi network. In many cases, the IP can be replaced by the hostname dreampi.local
