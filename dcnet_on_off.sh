@@ -15,7 +15,7 @@ verificar_arquivo_a() {
   if [ ! -f "dreampi_dcnet.py" ]; then
     echo "dreampi_dcnet.py backup and dcnet.rpi does not exist. Downloading..."
     echo ">>"
-    wget -q --show-progress -O dreampi_dcnet.py https://github.com/flyinghead/flycast/raw/refs/heads/dev/tools/dreampi/dreampi.py
+    wget -q --show-progress -O dreampi_dcnet.py https://github.com/scrivanidc/dreampi_custom_scripts/raw/main/DCNET_V2/dreampi_dcnet.py
     wget -q --show-progress -O dcnet.rpi https://github.com/flyinghead/flycast/raw/refs/heads/dev/tools/dreampi/dcnet.rpi
     chmod +x dreampi_dcnet.py dcnet.rpi
   else
