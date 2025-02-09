@@ -801,6 +801,8 @@ def process():
         logger.info("Detecting connection and modem...")
         internet_connected = check_internet_connection()
         device_and_speed = detect_device_and_speed()
+        global device_and_speed_
+        device_and_speed_ = device_and_speed
 
         if internet_connected and device_and_speed:
             logger.info("Internet connected and device found!")
@@ -1066,6 +1068,10 @@ def main():
         return process()
     except:
         logger.exception("Something went wrong...")
+        modem = Modem(device_and_speed_[0], device_and_speed_[1])
+        modem.connect()
+        modem._serial.write(b"\x00\x10\x03\r\n")
+        modem.disconnect()
         return 1
     finally:
         stop_service("dc2k2")
