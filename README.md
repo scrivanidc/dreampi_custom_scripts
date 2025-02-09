@@ -53,11 +53,6 @@ And whenever an option is chosen between on or off, it simply replaces the dream
 
 In short, this installer/executor works as a router between one script and another, being the traditional one and the DCNET.
 
-Youtube Video:
-Installing/Executing DCNET Switch Tool for DreamPi
-https://youtu.be/AsPZn_KY7x0
-
-
 
 Important issues:
 Reusing the DreamPi for DCNET will require you to manually change the options on the command line every time you want to return to the default connection mode (default servers). If this is unpleasant for you, I kindly ask you to avoid it.
