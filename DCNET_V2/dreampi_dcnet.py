@@ -591,7 +591,7 @@ class Modem(object):
                 self.reset()
                 self.send_command(b"AT+FCLASS=8")  # Enter voice mode
                 self.send_command(b"AT+VLS=1")  # Go off-hook
-                #self.send_command(b"AT+VSM=1,8000")  # 8 bit unsigned PCM
+                self.send_command(b"AT+VSM=1,8000")  # 8 bit unsigned PCM
                 self.send_command(b"AT+VTX")  # Voice transmission mode
                 logger.info("<LISTENING>")
                 break
