@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#script by scrivanidc 20250124
+#script by scrivanidc 20250124 #update 20250915
 echo "DCNET Server ON/OFF Script Switch"
 echo ""
 echo "Choose option number"
@@ -16,7 +16,8 @@ verificar_arquivo_a() {
     echo "dreampi_dcnet.py backup and dcnet.rpi does not exist. Downloading..."
     echo ">>"
     wget -q --show-progress -O dreampi_dcnet.py https://github.com/scrivanidc/dreampi_custom_scripts/raw/main/DCNET_V2/dreampi_dcnet.py
-    wget -q --show-progress -O dcnet.rpi https://github.com/flyinghead/flycast/raw/refs/heads/dev/tools/dreampi/dcnet.rpi
+    wget -q --show-progress -O dcnet.rpi https://github.com/scrivanidc/dreampi_custom_scripts/raw/main/DCNET_V2/dcnet.rpi
+    #wget -q --show-progress -O dcnet.rpi https://github.com/flyinghead/flycast/raw/refs/heads/dev/tools/dreampi/dcnet.rpi
     chmod +x dreampi_dcnet.py dcnet.rpi
   else
     echo "dreampi_dcnet.py and dcnet.rpi exists. OK."
@@ -71,6 +72,7 @@ else
   echo "Invalid option. Please choose 1, 2 or 3."
 fi
 
-sudo service dreampi restart &
 echo ">>"
-echo "Restarting Modem, ready to dial soon"
+echo "Restarting RaspberryPi, ready to dial soon"
+sleep 5
+sudo reboot &
