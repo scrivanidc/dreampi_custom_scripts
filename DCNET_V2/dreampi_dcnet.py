@@ -79,6 +79,7 @@ DNS_FILE = "https://dreamcast.online/dreampi/dreampi_dns.conf"
 
 
 logger = logging.getLogger("dreampi")
+logger.propagate = False
 first_run = 1
 
 def check_internet_connection():
@@ -685,7 +686,7 @@ class Modem(object):
             final_command = ("%s\r\n" % command).encode() 
 
         self._serial.write(final_command)
-        logger.info('Command: %s' % final_command.decode())
+        logger.info('Command: %s' % command.decode())
 
         start = time.time()
         line = b""
@@ -877,57 +878,13 @@ def process():
             if ord(char) == 16:
                 # DLE character
                 try:
-                    parsed = netlink.digit_parser(modem)
-                    if parsed == "nada":
-                        pass
-                    elif isinstance(parsed,dict):
-                        client = parsed['client']
-                        dial_string = parsed['dial_string']
-                        side = parsed['side']
-                        logger.info("Heard: %s" % dial_string)
-                        
-                        if dial_string in xbandnums:
-                            logger.info("Calling Xband server")
-                            client = "xband"
-                            mode = "XBAND ANSWERING"
+                    char = modem._serial.read(1)
+                    digit = int(char)
+                    logger.info("Heard: %s", digit)
 
-                        elif dial_string == "00":
-                            side = "waiting"
-                            client = "direct_dial"
-                            saturn = False
-                        elif dial_string[0:3] == "859":
-                            try:
-                                kddi_opponent = dial_string
-                                kddi_lookup = "https://dial.redreamcast.net/?phoneNumber=%s" % kddi_opponent
-                                response = requests.get(kddi_lookup)
-                                response.raise_for_status()
-                                ip = response.text
-                                if len(ip) == 0:
-                                    pass
-                                else:
-                                    dial_string = ip
-                                    logger.info(dial_string)
-                                    saturn = False
-                                    side = "calling"
-                                    client = "direct_dial"
-                                    time.sleep(7)
-                            except requests.exceptions.HTTPError:
-                                pass
-                        elif len(dial_string.split('*')) == 5 and dial_string.split('*')[-1] == "1":
-                            oppIP = '.'.join(dial_string.split('*')[0:4])
-                            client = "xband"
-                            mode = "NETLINK ANSWERING"
-                            side = "calling"
-                        
-                       
-                        if client == "direct_dial":
-                            mode = "NETLINK ANSWERING"
-                        elif client == "xband":
-                            pass
-                        else:
-                            mode = "ANSWERING"
-                        modem.stop_dial_tone()
-                        time_digit_heard = now
+                    mode = "ANSWERING"
+                    modem.stop_dial_tone()
+                    time_digit_heard = now
                 except (TypeError, ValueError):
                     pass
                 
@@ -1061,10 +1018,10 @@ def main():
         afo_patcher_rule = start_afo_patching()
         dnat_rules = start_dnat_rules()
         ttl_rule = add_increased_ttl()
-        start_service("dcvoip")
-        start_service("dcgamespy")
-        start_service("dc2k2")
-        start_service("dcdaytona")
+        #start_service("dcvoip")
+        #start_service("dcgamespy")
+        #start_service("dc2k2")
+        #start_service("dcdaytona")
         return process()
     except:
         logger.exception("Something went wrong...")
@@ -1074,10 +1031,10 @@ def main():
         modem.disconnect()
         return 1
     finally:
-        stop_service("dc2k2")
-        stop_service("dcgamespy")
-        stop_service("dcvoip")
-        stop_service("dcdaytona")
+        #stop_service("dc2k2")
+        #stop_service("dcgamespy")
+        #stop_service("dcvoip")
+        #stop_service("dcdaytona")
         if afo_patcher_rule is not None:
             stop_afo_patching(afo_patcher_rule)
         if ttl_rule is not None:
