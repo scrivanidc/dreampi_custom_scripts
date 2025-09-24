@@ -1,13 +1,21 @@
 #!/bin/bash
 
 #script by scrivanidc 20250124 #update 20250915
-echo "DCNET Server ON/OFF Script Switch"
-echo ""
-echo "Choose option number"
-echo "1. DCNET Script ON"
-echo "2. DCNET Script OFF (Standard DreamPi)"
-echo "3. Delete DCNET Files"
-read -p "Type 1, 2 or 3 and press Enter: " opcao
+ACTION=$1
+
+if [ "$ACTION" = "enable" ]; then
+  opcao="1"
+elif [ "$ACTION" = "disable" ]; then
+  opcao="2"
+else
+  echo "DCNET Server ON/OFF Script Switch"
+  echo ""
+  echo "Choose option number"
+  echo "1. DCNET Script ON"
+  echo "2. DCNET Script OFF (Standard DreamPi)"
+  echo "3. Delete DCNET Files"
+  read -p "Type 1, 2 or 3 and press Enter: " opcao
+fi
 
 cd /home/pi/dreampi/
 echo ""
