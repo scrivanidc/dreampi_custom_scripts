@@ -71,7 +71,7 @@ def get_server_names():
         ascii_parts = re.findall(r'\|([^\|]+)\|', output_str)
         ascii_text = ''.join(ascii_parts)
 
-        matches = re.findall(r'(US Central|Europe|South America)', ascii_text)
+        matches = re.findall(r'(US East|US West|Europe|South America)', ascii_text)
         return matches
 
     except subprocess.CalledProcessError as e:
@@ -353,7 +353,8 @@ def process():
     server_names = get_server_names()
 
     region_to_host = {
-    "US Central": "dcnet.flyca.st",
+    "US East": "dcnet-use.flyca.st",
+    "US West": "dcnet-usw.flyca.st",
     "Europe": "dcnet-eu.flyca.st",
     "South America": "hmnetbrasil.ddns.net"
     }
