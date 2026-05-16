@@ -394,6 +394,9 @@ int main(int argc, char *argv[])
 	ssize_t outbuflen = 0;
 	char inbuf[1504];
 	ssize_t inbuflen = 0;
+	char inbuffixed[1504];
+	ssize_t inbuffixedlen = 0;
+	int markerSeen = 0;
 	for (;;)
 	{
 #ifdef DEBUG
@@ -430,7 +433,7 @@ int main(int argc, char *argv[])
 			if (outbufReady != 0)
 				FD_SET(sockfd, &writefds);
 		}
-		if (inbuflen > 0)
+		if (inbuflen > 0 || inbuffixedlen > 0)
 			FD_SET(ttyfd, &writefds);
 		int nfds = (sockfd > ttyfd ? sockfd : ttyfd) + 1;
 		if (select(nfds, &readfds, &writefds, NULL, NULL) == -1)
@@ -443,7 +446,7 @@ int main(int argc, char *argv[])
 		}
 		if (FD_ISSET(ttyfd, &readfds))
 		{
-			ssize_t ret = read(ttyfd, outbuf + outbuflen, sizeof(outbuf) - (size_t)outbuflen); 
+			ssize_t ret = read(ttyfd, outbuf + outbuflen, sizeof(outbuf) - (size_t)outbuflen);
 			if (ret < 0) {
 				if (errno != EINTR && errno != EWOULDBLOCK) {
 					fprintf(stderr, "read from tty failed: %d\n", errno);
@@ -462,7 +465,7 @@ int main(int argc, char *argv[])
 		}
 		if (FD_ISSET(sockfd, &readfds))
 		{
-			ssize_t ret = read(sockfd, inbuf + inbuflen, sizeof(inbuf) - (size_t)inbuflen); 
+			ssize_t ret = read(sockfd, inbuf + inbuflen, sizeof(inbuf) - (size_t)inbuflen);
 			if (ret < 0) {
 				if (errno != EINTR && errno != EWOULDBLOCK) {
 					fprintf(stderr, "read from socket failed: %d\n", errno);
@@ -481,7 +484,27 @@ int main(int argc, char *argv[])
 		}
 		if (FD_ISSET(ttyfd, &writefds))
 		{
-			ssize_t ret = write(ttyfd, inbuf, (size_t)inbuflen);
+			ssize_t i = 0;
+			while (i < inbuflen && inbuffixedlen <= sizeof(inbuffixed))
+			{
+				if (markerSeen)
+				{
+					markerSeen = 0;
+					if (inbuf[i] != '~') {
+						inbuffixed[inbuffixedlen++] = '~';
+						continue;
+					}
+				}
+				else if (inbuf[i] == '~') {
+					markerSeen = 1;
+				}
+				inbuffixed[inbuffixedlen++] = inbuf[i++];
+			}
+			if (i != 0) {
+				inbuflen -= i;
+				memmove(inbuf, inbuf + i, (size_t)inbuflen);
+			}
+			ssize_t ret = write(ttyfd, inbuffixed, (size_t)inbuffixedlen);
 			if (ret < 0) {
 				if (errno != EINTR && errno != EWOULDBLOCK) {
 					fprintf(stderr, "write to tty failed: %d\n", errno);
@@ -491,9 +514,9 @@ int main(int argc, char *argv[])
 			}
 			if (ret > 0)
 			{
-				inbuflen -= ret;
-				if (inbuflen > 0)
-					memmove(inbuf, inbuf + ret, (size_t)inbuflen);
+				inbuffixedlen -= ret;
+				if (inbuffixedlen > 0)
+					memmove(inbuffixed, inbuffixed + ret, (size_t)inbuffixedlen);
 			}
 		}
 		if (FD_ISSET(sockfd, &writefds))
