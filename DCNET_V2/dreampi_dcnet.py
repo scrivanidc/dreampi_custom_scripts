@@ -228,13 +228,19 @@ class Modem(object):
     def answer(self):
         if os.path.isfile("/home/pi/mute"):
             self.send_command(b"ATM0") #mute speaker modems
+
+        port = dcnet_port
+        
+        if "5360010" in dial_string:
+            port = "7656"
+            logger.info("DCNET: Power Smash/VOOT digits detected. Connecting with port {} ".format(port))
         
         self.send_command(b"ATA", ignore_responses=[b"OK"])
         time.sleep(3)
         logger.info("Call answered!")
-        
+       
         process="dcnet.rpi"
-        cmd = ["/home/pi/dreampi/dcnet.rpi", "-t", "{}".format(self._device), "-b", "{}".format(self._speed)]
+        cmd = ["/home/pi/dreampi/dcnet.rpi", "-t", "{}".format(self._device), "-b", "{}".format(self._speed), "-p", "{}".format(port)]
 
         if os.path.isfile("/home/pi/socat"):           
             try:
@@ -356,7 +362,7 @@ def process():
     "US East": "dcnet-use.flyca.st",
     "US West": "dcnet-usw.flyca.st",
     "Europe": "dcnet-eu.flyca.st",
-    "South America": "hmnetbrasil.ddns.net"
+    "South America": "dcnet-br.flyca.st"
     }
     
     if server_names:
@@ -365,8 +371,12 @@ def process():
         server_names = list(region_to_host.keys())
         hosts = list(region_to_host.values())
     
+    global dial_string
     global best_ap
+    global dcnet_port
+    dial_string = ""
     best_ap = best_host(server_names, hosts)
+    dcnet_port = "7654"
 
     logger.info("Detecting modem...")
     global device_and_speed
@@ -397,13 +407,33 @@ def process():
 
             if ord(char) == 16:
                 try:
-                    char = modem._serial.read(1)
-                    digit = int(char)
-                    logger.info("Heard: %s", digit)
+                    last_heard = time.time()
+                    raw_string = ""
+                    tel_digits = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#']
+                    char = modem._serial.read(1).decode()
+                    if char in tel_digits:
+                        raw_string += char
+                        while True:
+                            if time.time() - last_heard > 3:
+                                break
+                            try:
+                                char = modem._serial.read(1).decode() #first character was <DLE>, what's next?
+                                if ord(char) == 16:
+                                    continue
+                                if char in tel_digits:
+                                    last_heard = time.time()
+                                    raw_string += char
+                            except (TypeError, ValueError):
+                                pass
 
-                    mode = "ANSWERING"
-                    modem.stop_dial_tone()
-                    time_digit_heard = now
+                    if len(raw_string) > 0:
+                        logger.info("Heard: %s", raw_string)
+                        dial_string = raw_string
+                        mode = "ANSWERING"
+                        modem.stop_dial_tone()
+                        time_digit_heard = now
+                    else:
+                        pass
                 except (TypeError, ValueError):
                     pass
 
