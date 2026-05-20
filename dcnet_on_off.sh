@@ -45,6 +45,8 @@ verificar_arquivo_b() {
 }
 
 copiar_arquivo_a() {
+  cp dreampi.py dreampi_standard.py
+  cp dreampi.py dreampi_standard2.py
   cp dreampi_dcnet.py dreampi.py
   echo "dreampi_dcnet.py copied to dreampi.py"
   echo ">>"
